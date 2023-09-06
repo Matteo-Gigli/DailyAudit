@@ -64,7 +64,7 @@ describe("Reentrancy Attack", function(){
 
 
 
-    it("Send Ether steal to hacker", async()=>{
+    it("Send stolen Ether to hacker", async()=>{
         let balanceHackerBefore = await ethers.provider.getBalance(hacker.address);
         console.log("Hacker balance before exploit", (balanceHackerBefore/10**18).toString(), "ether");
 
