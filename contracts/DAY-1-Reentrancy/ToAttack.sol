@@ -25,13 +25,17 @@ contract ToAttack {
     //Reentrancy on this functions
     //Problems:
     //  1) Doesn't follow CEI patterns(Check-Effects-Interaction)
-    //      balances is upgrade after the low-level call
+    //      balances is upgrade after the low-level call and is in unchecked
     //  2) Doesn't check the return value of a low level call
 
     function withdraw(uint amount)public{
         require(balances[msg.sender] >= amount, "Nothing to withdraw");
         msg.sender.call{value: amount}("");
-        balances[msg.sender] = 0;
+
+        unchecked{
+            balances[msg.sender] -= amount;
+        }
+
     }
 
 

@@ -44,35 +44,22 @@ describe("Reentrancy Attack", function(){
 
     it("Exploit", async()=>{
 
-        let balanceAttackerBefore = await ethers.provider.getBalance(attacker.address);
+
+        let balanceAttackerBefore = await toAttack.balances(attacker.address);
         console.log("Attacker balance before exploit", (balanceAttackerBefore/10**18).toString(), "ether");
+
 
         let balanceToAttackBefore = await ethers.provider.getBalance(toAttack.address);
         console.log("toAttack balance Before exploit", (balanceToAttackBefore/10**18).toString(), "ether");
         console.log("");
 
-        await attacker.connect(hacker).exploit({value: ethers.utils.parseEther("1")});
+        await attacker.connect(hacker).exploit({value: ethers.utils.parseEther("2")});
 
         let balanceAttackerAfter = await ethers.provider.getBalance(attacker.address);
         console.log("Attacker balance after exploit", (balanceAttackerAfter/10**18).toString(), "ether");
 
         let balanceToAttackAfter = await ethers.provider.getBalance(toAttack.address);
         console.log("toAttack balance After exploit", (balanceToAttackAfter/10**18).toString(), "ether");
-    });
-
-
-
-    //If we set 1 ether as value on the first Exploit, we have to recall the exploit function if we want to
-    //fully drain the 'ToAttack' contract.
-    it("Exploit again",async()=>{
-        await attacker.connect(hacker).exploit({value: ethers.utils.parseEther("1")});
-
-        let balanceAttackerAfter = await ethers.provider.getBalance(attacker.address);
-        console.log("Attacker balance after exploit", (balanceAttackerAfter/10**18).toString(), "ether");
-
-        let balanceToAttackAfter = await ethers.provider.getBalance(toAttack.address);
-        console.log("toAttack balance After exploit", (balanceToAttackAfter/10**18).toString(), "ether");
-        console.log("");
     });
 
 

