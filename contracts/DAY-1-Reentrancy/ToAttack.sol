@@ -28,9 +28,9 @@ contract ToAttack {
     //      balances is upgrade after the low-level call
     //  2) Doesn't check the return value of a low level call
 
-    function withdraw()public{
-        require(balances[msg.sender] > 0, "Nothing to withdraw");
-        msg.sender.call{value: balances[msg.sender]}("");
+    function withdraw(uint amount)public{
+        require(balances[msg.sender] >= amount, "Nothing to withdraw");
+        msg.sender.call{value: amount}("");
         balances[msg.sender] = 0;
     }
 
