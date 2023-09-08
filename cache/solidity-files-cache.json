@@ -39,8 +39,8 @@
       ]
     },
     "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\DAY-1-Reentrancy\\ToAttack.sol": {
-      "lastModificationDate": 1694011987302,
-      "contentHash": "31945536de5f6614781ea6ebc88170ee",
+      "lastModificationDate": 1694012274571,
+      "contentHash": "c835b979eb70800177a7eacfad5ac2e2",
       "sourceName": "contracts/DAY-1-Reentrancy/ToAttack.sol",
       "solcConfig": {
         "version": "0.8.19",
@@ -71,6 +71,76 @@
       ],
       "artifacts": [
         "ToAttack"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\DAY-2-AccessControl\\AccessControl\\ToAttackAccessControlMissing.sol": {
+      "lastModificationDate": 1694104744554,
+      "contentHash": "16c84dd4b080557320370b5b1d0f1157",
+      "sourceName": "contracts/DAY-2-AccessControl/AccessControl/ToAttackAccessControlMissing.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "ToAttackAccessControlMissing"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\DAY-2-AccessControl\\AccessModifier\\ToAttackAccess.sol": {
+      "lastModificationDate": 1694104523016,
+      "contentHash": "d406d2484b1cba6d54344f5ac2488328",
+      "sourceName": "contracts/DAY-2-AccessControl/AccessModifier/ToAttackAccess.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "ToAttackAccess"
       ]
     }
   }
