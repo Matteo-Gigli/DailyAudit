@@ -5,7 +5,7 @@
 
 <h3>What can you find here?</h3>
 
-<h2>A small list of the most common vulnerabilities in solidity.</h2>
+<h2>💥 A small list of the most common vulnerabilities in solidity.</h2>
 <h4>In every folder you can find:</h4>
 <h4>1) Contract To Attack</h4>
 <h4>2) Attacker Contract</h4>
@@ -18,12 +18,12 @@
 <br>
 <br>
 
-<h2>All the challenges from:</h2>
-<h4>1) DamnVulnerableDefi</h4>
-<h4>2) Ethernaut</h4>
-<h4>3) CTF'S</h4>
+<h2>😱 All the challenges from:</h2>
+<h4>1) 📊 DamnVulnerableDefi</h4>
+<h4>2) 👽 Ethernaut</h4>
+<h4>3) 📈 CTF'S</h4>
 
 
-<h3>Do you want to be an Hacker?</h3>
+<h3>👨‍💻 Do you want to be an Hacker?</h3>
 
 
