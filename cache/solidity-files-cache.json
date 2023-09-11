@@ -1,10 +1,10 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\DAY-1-Reentrancy\\Attacker.sol": {
+    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\CommonVulnerabilities\\DAY-1-Reentrancy\\Attacker.sol": {
       "lastModificationDate": 1694012002857,
       "contentHash": "6f258e1b9eea0d201b4495f923507702",
-      "sourceName": "contracts/DAY-1-Reentrancy/Attacker.sol",
+      "sourceName": "contracts/CommonVulnerabilities/DAY-1-Reentrancy/Attacker.sol",
       "solcConfig": {
         "version": "0.8.19",
         "settings": {
@@ -38,10 +38,10 @@
         "Attacker"
       ]
     },
-    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\DAY-1-Reentrancy\\ToAttack.sol": {
+    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\CommonVulnerabilities\\DAY-1-Reentrancy\\ToAttack.sol": {
       "lastModificationDate": 1694012274571,
       "contentHash": "c835b979eb70800177a7eacfad5ac2e2",
-      "sourceName": "contracts/DAY-1-Reentrancy/ToAttack.sol",
+      "sourceName": "contracts/CommonVulnerabilities/DAY-1-Reentrancy/ToAttack.sol",
       "solcConfig": {
         "version": "0.8.19",
         "settings": {
@@ -73,10 +73,10 @@
         "ToAttack"
       ]
     },
-    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\DAY-2-AccessControl\\AccessControl\\ToAttackAccessControlMissing.sol": {
+    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\CommonVulnerabilities\\DAY-2-AccessControl\\AccessControl\\ToAttackAccessControlMissing.sol": {
       "lastModificationDate": 1694104744554,
       "contentHash": "16c84dd4b080557320370b5b1d0f1157",
-      "sourceName": "contracts/DAY-2-AccessControl/AccessControl/ToAttackAccessControlMissing.sol",
+      "sourceName": "contracts/CommonVulnerabilities/DAY-2-AccessControl/AccessControl/ToAttackAccessControlMissing.sol",
       "solcConfig": {
         "version": "0.8.19",
         "settings": {
@@ -108,10 +108,10 @@
         "ToAttackAccessControlMissing"
       ]
     },
-    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\DAY-2-AccessControl\\AccessModifier\\ToAttackAccess.sol": {
+    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\CommonVulnerabilities\\DAY-2-AccessControl\\AccessModifier\\ToAttackAccess.sol": {
       "lastModificationDate": 1694104523016,
       "contentHash": "d406d2484b1cba6d54344f5ac2488328",
-      "sourceName": "contracts/DAY-2-AccessControl/AccessModifier/ToAttackAccess.sol",
+      "sourceName": "contracts/CommonVulnerabilities/DAY-2-AccessControl/AccessModifier/ToAttackAccess.sol",
       "solcConfig": {
         "version": "0.8.19",
         "settings": {
@@ -141,6 +141,78 @@
       ],
       "artifacts": [
         "ToAttackAccess"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\CommonVulnerabilities\\DAY-3-Randomness\\Random\\AttackerRandom.sol": {
+      "lastModificationDate": 1694429069043,
+      "contentHash": "93887430429b4c24900db1ee71eeec09",
+      "sourceName": "contracts/CommonVulnerabilities/DAY-3-Randomness/Random/AttackerRandom.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ToAttackRandom.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "AttackerRandom"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\CommonVulnerabilities\\DAY-3-Randomness\\Random\\ToAttackRandom.sol": {
+      "lastModificationDate": 1694429032897,
+      "contentHash": "10e1fd08dd094f8c4adb7ae59a79b692",
+      "sourceName": "contracts/CommonVulnerabilities/DAY-3-Randomness/Random/ToAttackRandom.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "ToAttackRandom"
       ]
     }
   }
