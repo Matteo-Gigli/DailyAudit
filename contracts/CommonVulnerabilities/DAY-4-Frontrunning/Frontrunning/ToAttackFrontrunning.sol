@@ -15,7 +15,8 @@ contract ToAttackFrontrunning {
         require(rightHash == bytes32(abi.encodePacked(_yourAnswer)), "Wrong Answer!");
         require(!alreadyFund, "Already Fund");
         alreadyFund = true;
-        msg.sender.call{value: address(this).balance}("");
+        (bool result,) = msg.sender.call{value: address(this).balance}("");
+        require(result, "Tx Failed!");
     }
 
 
