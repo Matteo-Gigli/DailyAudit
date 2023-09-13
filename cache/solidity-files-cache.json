@@ -181,8 +181,8 @@
       ]
     },
     "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\CommonVulnerabilities\\DAY-3-Randomness\\Random\\ToAttackRandom.sol": {
-      "lastModificationDate": 1694429032897,
-      "contentHash": "10e1fd08dd094f8c4adb7ae59a79b692",
+      "lastModificationDate": 1694434621556,
+      "contentHash": "ba2256b8a016ec36209b9bc10a893888",
       "sourceName": "contracts/CommonVulnerabilities/DAY-3-Randomness/Random/ToAttackRandom.sol",
       "solcConfig": {
         "version": "0.8.19",
@@ -213,6 +213,41 @@
       ],
       "artifacts": [
         "ToAttackRandom"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\TwitterPost\\contracts\\CommonVulnerabilities\\DAY-4-Frontrunning\\Frontrunning\\ToAttackFrontrunning.sol": {
+      "lastModificationDate": 1694587450315,
+      "contentHash": "1f5f9808445e814c7b2a321c86c08796",
+      "sourceName": "contracts/CommonVulnerabilities/DAY-4-Frontrunning/Frontrunning/ToAttackFrontrunning.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "ToAttackFrontrunning"
       ]
     }
   }

@@ -2,7 +2,7 @@ const{expect} = require("chai");
 const{expectRevert} = require("@openzeppelin/test-helpers");
 
 
-describe("Random Attack", function(){
+describe("Frontrunning Attack", function(){
 
     let owner, account1, account2, account3, hacker,
         ToAttackRandom, toAttackRandom, AttackerRandom, attackerRandom;
@@ -27,7 +27,7 @@ describe("Random Attack", function(){
 
         let toAttackRandomBalance = await ethers.provider.getBalance(toAttackRandom.address);
 
-        console.log("To Attack Random Balance", (toAttackRandomBalance/10**18).toString(), "ether");
+        console.log("To Attack Frontrunning Balance", (toAttackRandomBalance/10**18).toString(), "ether");
         console.log("");
     });
 
