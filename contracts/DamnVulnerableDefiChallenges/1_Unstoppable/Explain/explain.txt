@@ -1,0 +1,84 @@
+DAMN Vulnerable DEFI: 1-Unstoppable
+
+We have 2 contracts: ReceiverUnstoppable and UnstoppableVault.
+
+ReceiverUnstoppable is the receiver of the flashLoan and working as IERC3156FlashBorrower.
+UnstoppableVault is the contract that offer Flashloan for free and working as IERC3156FlashLender.
+
+UnstoppableVault inherit from ERC4626.
+
+Looking at the code of UnstoppableVault Contract we can see this function:
+
+    function flashLoan(
+        IERC3156FlashBorrower receiver,
+        address _token,
+        uint256 amount,
+        bytes calldata data
+    ) external returns (bool) {
+        if (amount == 0) revert InvalidAmount(0); // fail early
+        if (address(asset) != _token) revert UnsupportedCurrency(); // enforce ERC3156 requirement
+        uint256 balanceBefore = totalAssets();
+        if (convertToShares(totalSupply) != balanceBefore) revert InvalidBalance(); // enforce ERC4626 requirement
+        uint256 fee = flashFee(_token, amount);
+        // transfer tokens out + execute callback on receiver
+        ERC20(_token).safeTransfer(address(receiver), amount);
+        // callback must return magic value, otherwise assume it failed
+        if (receiver.onFlashLoan(msg.sender, address(asset), amount, fee, data) != keccak256("IERC3156FlashBorrower.onFlashLoan"))
+            revert CallbackFailed();
+        // pull amount + fee from receiver, then pay the fee to the recipient
+        ERC20(_token).safeTransferFrom(address(receiver), address(this), amount + fee);
+        ERC20(_token).safeTransfer(feeRecipient, fee);
+        return true;
+    }
+
+This is the function for the flashloan.
+
+What it looks strange in this function is this line of code:
+
+    if (convertToShares(totalSupply) != balanceBefore) revert InvalidBalance();
+
+
+convertToShares() function is coming from ERC4626 and it looks like this:
+
+    function convertToShares(uint256 assets) public view virtual returns (uint256) {
+        uint256 supply = totalSupply; // Saves an extra SLOAD if totalSupply is non-zero.
+
+        return supply == 0 ? assets : assets.mulDivDown(supply, totalAssets());
+    }
+
+As we can see, this function take amountOfAsset as parameter and then check for the total supply.
+if total supply == 0, we get back the amountOfAsset parameter, instead if totalSupply is != from 0
+we get back ==> supply * totalAssets / amountOfAsset.
+
+
+balanceBefore give back the asset balance of the contract.
+
+So let's assume we have a 1000 DVT Token in UnstoppableVault.
+Once we are going to ask for a flashloan, and arrive to this line of code
+    if (convertToShares(totalSupply) != balanceBefore) revert InvalidBalance();
+
+what happens is:
+
+1) enter in convertToshare(totalSupply) function:
+2) convertToShare result is: 1000(TotalDVTInContract) * 1000(TotalDVTSupplyInContract) / 1000(totalSupply parameter)
+    result ==> 1000
+3) BalanceBefore is equal to: address(unstoppableVault).balance ===> 1000
+
+4) We skip the require because convertToShare(totalSupply) and balanceBefore are equal.
+
+
+Now what happens if an hacker send, out of the contract, 1 DVT token to the UnstoppableVault?
+
+UnstoppableVault will be in DoS.
+
+
+That's happen because:
+
+1) enter in convertToshare(totalSupply) function:
+2) convertToShare result is: 1000(TotalDVTInContract) * 1000(TotalDVTSupplyInContract) / 1000(totalSupply parameter)
+    result ==> 1000
+3) BalanceBefore is equal to: address(unstoppableVault).balance ===> 1001
+
+4) convertToShare(totalSupply) and balanceBefore are differents and the require will never be satysfied anymore.
+
+5) DoS

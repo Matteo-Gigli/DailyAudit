@@ -6,10 +6,18 @@
 <h3>What can you find here?</h3>
 
 <h2>💥 A small list of the most common vulnerabilities in solidity.</h2>
-<h4>In every folder you can find:</h4>
-<h4>1) Contract To Attack</h4>
-<h4>2) Attacker Contract</h4>
-<h4>3) Test</h4>
+<br>
+<h4>🔎 In every folder you can find:</h4>
+<br>
+
+<ul>  
+   <li> 1) 😢 Contract To Attack</li> 
+   <br>
+   <li> 2) 💥 Attacker Contract</li> 
+   <br>
+   <li> 3) 👨‍💻 Test</li>              
+</ul>
+<br>
 
 <h4>To Run Test,on a specific folder(ex DAY-1-Reentrancy), for the most common vulnerabilities, just use:</h4>
 <h4>npx hardhat test contracts/CommonVulnerabilities/DAY-1-Reentrancy/test/test.js</h4>
@@ -19,11 +27,33 @@
 <br>
 
 <h2>😱 All the challenges from:</h2>
-<h4>1) 📊 DamnVulnerableDefi</h4>
-<h4>2) 👽 Ethernaut</h4>
-<h4>3) 📈 CTF'S</h4>
+
+<ul>
+   <li> 1) 📊 DamnVulnerableDefi</li>
+   <br>
+   <li> 2) 👽 Ethernaut</li>
+   <br>
+   <li> 3) 📈 CTF'S</li>
+</ul>
 
 
+<br><br>
+  
+<h4>To correctly use this repo, install:</h4>
+<ul>
+   <li>npm i @openzeppelin/contracts:</li>   
+   <li>npm i @openzeppelin/test-helpers:</li>
+   <li>npm i @nomiclabs/hardhat-ethers</li>  
+   <li>npm i dotenv</li>                     
+   <li>npm i solmate:</li> 
+</ul> 
+
+
+
+
+<br>
 <h3>👨‍💻 Do you want to be an Hacker?</h3>
+
+
 
 
