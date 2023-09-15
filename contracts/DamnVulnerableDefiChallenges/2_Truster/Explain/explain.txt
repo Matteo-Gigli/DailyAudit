@@ -1,0 +1,97 @@
+DAMN Vulnerable DEFI: 2-Truster
+
+We have 2 contracts: DamnValuableToken, TrusterLenderPool
+
+DamnValuableToken is a basic EC20 Token contract.
+
+TrusterLenderPool is a "protocol" where we can have a flashloan of DamnValuableToken.
+
+Now let's see the flashloan function in TrusterLenderPool:
+
+    function flashLoan(uint256 amount, address borrower, address target, bytes calldata data)
+        external
+        nonReentrant
+        returns (bool)
+    {
+        uint256 balanceBefore = token.balanceOf(address(this));
+
+        token.transfer(borrower, amount);
+        target.functionCall(data);
+
+
+        if (token.balanceOf(address(this)) < balanceBefore)
+            revert RepayFailed();
+
+        return true;
+    }
+
+As we can see, this function take some parameter as input, to perform different call.
+
+amount ==> the amount to loan
+borrower ==> receiver of the flashLoan
+target ==> address of the token
+data ==> a bytes32 of data
+
+Now if we take a look of the function we can see at some point, we have:
+
+    target.functionCall(data);
+
+.functionCall(bytes data) is coming from Address.sol, and perform a low-level call on the target address.
+
+At this point we can pass as target, the contract address, and as data, we can pass a encode bytes of a
+function from the target address.
+
+How we can do?
+
+In solidity we can encode some bytes of data via:
+
+    bytes32 memory data = abi(encodeWithSignature("approve(address,uint)", owner, contractBalance));
+
+abi(encodeWithSignature("approve(address,uint)", owner, 100)) in this example approve to the owner address
+the contractBalance.
+
+
+
+Now come back to our contract and check how to use this functionality:
+
+
+    function flashLoan(uint256 amount, address borrower, address target, bytes calldata data)
+        external
+        nonReentrant
+        returns (bool)
+    {
+        uint256 balanceBefore = token.balanceOf(address(this));
+
+        token.transfer(borrower, amount);
+        target.functionCall(data);
+
+
+        if (token.balanceOf(address(this)) < balanceBefore)
+            revert RepayFailed();
+
+        return true;
+    }
+
+We can use this function to approve the total amount of the TrusterLenderPool contract balance to us.
+
+Now image TrusterLenderPool contract have 100 MLN of DamnValuableTokens(DVT).
+
+Follow the steps:
+
+1) Ask a flashLoan via this function an pass as parameter:
+    1.1) 0 because we don't want a flashloan
+    1.2) borrower will be our address
+    1.3) target is the DVT token contractAddress
+    1.4) data is the encoding of abi(encodeWithSignature("approve(address,uint)", owner, contractBalance));
+
+2) set balanceBefore
+3) Tokens transferred to borrower (amount == 0)
+
+4) target.functionCall(data) ==> At this point we take the DVT token address, and via functionCall()we call the
+data.
+What is happening here is, we set to the DVT tokens an approval for us of the total amount of DVT tokens
+in the TrusterLenderPool.
+At this point we have 100 MLN tokens approval to us.
+The only thing we need now after the approval, is to transfer all the DVT tokens to us.
+
+You can check everything in the test file.

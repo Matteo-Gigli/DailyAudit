@@ -3,6 +3,7 @@
 
 <img src="https://media.giphy.com/media/3kPDmoWdBpQPNhCnUG/giphy.gif" width="1000"/>
 
+
 <h3>What can you find here?</h3>
 
 <h2>💥 A small list of the most common vulnerabilities in solidity.</h2>
@@ -47,6 +48,9 @@
    <li>npm i dotenv</li>                     
    <li>npm i solmate:</li> 
 </ul> 
+
+
+<h3>Settings are already done but, you should switch the network for some exercise, so check on hardhat.config.js the right conf for the exercise you want to test</h3>
 
 
 
