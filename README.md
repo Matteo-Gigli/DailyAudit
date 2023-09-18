@@ -47,6 +47,7 @@
    <li>npm i @nomiclabs/hardhat-ethers</li>  
    <li>npm i dotenv</li>                     
    <li>npm i solmate:</li> 
+   <li>npm i solady:</li> 
 </ul> 
 
 

@@ -982,6 +982,154 @@
       "artifacts": [
         "IERC3156FlashLender"
       ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
+      "lastModificationDate": 1693993865333,
+      "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\3_SideEntrance\\AttackerSide.sol": {
+      "lastModificationDate": 1695024634140,
+      "contentHash": "1cce3c4d41ebe0d58c179276ee80df51",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/3_SideEntrance/AttackerSide.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "./SideEntranceLenderPool.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "AttackerSide"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\3_SideEntrance\\SideEntranceLenderPool.sol": {
+      "lastModificationDate": 1695024634155,
+      "contentHash": "1bb56113467e47d8326809d40612b5de",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/3_SideEntrance/SideEntranceLenderPool.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "solady/src/utils/SafeTransferLib.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IFlashLoanEtherReceiver",
+        "SideEntranceLenderPool"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\solady\\src\\utils\\SafeTransferLib.sol": {
+      "lastModificationDate": 1695028244503,
+      "contentHash": "b18b30a3953a1390b6a59b78b9bd9326",
+      "sourceName": "solady/src/utils/SafeTransferLib.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "SafeTransferLib"
+      ]
     }
   }
 }
