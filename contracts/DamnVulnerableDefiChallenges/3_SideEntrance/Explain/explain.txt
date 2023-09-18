@@ -1,0 +1,67 @@
+DAMN Vulnerable DEFI: 3-SideEntrance
+
+We have 1 contract: SideEntranceLenderPool
+
+This contract allow anyone to have a flashloan, and have 2 functions to deposit ether and withdraw it.
+
+Now take a look at flashloan function:
+
+    function flashLoan(uint256 amount) external {
+        uint256 balanceBefore = address(this).balance;
+
+        IFlashLoanEtherReceiver(msg.sender).execute{value: amount}();
+
+        if (address(this).balance < balanceBefore)
+            revert RepayFailed();
+    }
+
+As we can see, this function check:
+
+1) balanceBefore => is the balance of the SideEntranceLenderPool contract.
+2) make a callback on the contract is calling the flashloan
+3) check if the SideEntranceLenderPool balance is same as balanceBefore.
+
+
+Now the break point here is:
+
+This function allow anyone to make a flashloan and then check if is repayed, but what is checking is
+if the contract balance is the same as before, after the flashloan.
+
+This will open a possibility using the other function of the contract.
+
+What happens if someone call flashloan and then use the deposit function?
+
+Flashloan function check only if the contract address is the same as before.
+
+
+So let's create the attacker contract.
+AttackerSide is the hacker's contract and is preatty simple.
+
+As you can see from the file, this contract have the callback function execute() to call the flashloan.
+In the callback we can write what we want and in this case, this function call the deposit() function from the
+SideEntranceLenderPool contract.
+
+The other function we can see here is the callFlash().
+This function call the flashloan with the amount of the SideEntranceLenderPool contract, then call the withdraw()
+function.
+
+So follow the steps to understand how this contract is working:
+
+
+1) SideEntranceLenderPool contract have a balance of 10000 ether.
+2) Hacker create the AttackerSide Contract.
+3) Hacker call the callFlash() function of the AttackerSide contract.
+4) This function call the flashloan of the SideEntranceLenderPool contract.
+5) Now, balance of the SideEntranceLenderPool is 0, and balance of AttackerSide is 10000 ether.
+6) Flashloan function check the callback execute() of the AttackerSide contract.
+7) execute(), deposit the flashloan of 10000 ehter on the SideEntranceLenderPool.
+8) Now, flashloan function from SideEntranceLenderPool is not finished, and in fact it check if the amount is
+"repayed"
+9) Amount is "repayed" but n this moment hacker have a deposit of 10000 ether and can withdraw it.
+10) Hacker withdraw 10000 ether.
+11) Pool is empty
+
+
+
+
+
