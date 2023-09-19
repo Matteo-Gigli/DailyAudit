@@ -1,0 +1,112 @@
+DAMN Vulnerable DEFI: 4-TheRewarder
+
+We have 4 contracts: AccountingToken, FlashLoanerPool, RewardToken, TheRewardPool.
+
+AccountingToken and RewardTokens are simply ERC20 tokens with an extension of ERC20Snapshot.
+
+FlashLoanerPool is the pool where DVT tokens are offer for flashloan.
+
+TheRewardPool is the contract to deposit/withdraw DVT Token and to distribute rewards in RewardTokens.
+
+
+Our mission is:
+"You don’t have any DVT tokens. But in the upcoming round, you must claim most rewards for yourself."
+
+What we can do?
+
+
+Let's have a check on the RewardPool Contract:
+
+    function deposit(uint256 amount) external {
+        if (amount == 0) {
+            revert InvalidDepositAmount();
+        }
+
+        accountingToken.mint(msg.sender, amount);
+        distributeRewards();
+
+        SafeTransferLib.safeTransferFrom(
+            liquidityToken,
+            msg.sender,
+            address(this),
+            amount
+        );
+    }
+
+If we call deposit(), some AccountingToken will be minted (ratio 1:1) and we call distributeRewards() function.
+
+This distributeRewards() function performs some check and it returns the last time rewards are been distributed.
+
+From the last distribution must pass 5 days, otherwise any rewardToken should be distributed.
+Max distribution of rTKN tokens(rewardTokens) for every round is 100e18.
+
+We don't have any tokens,and we cannot deposit any DVT token to claim the rTKN.
+
+
+Now let's supposed:
+
+FlashLoanerPool Tokens Balance = 970000 DVT
+Account1 DVT Tokens Balance = 10000 DVT
+Account2 DVT Tokens Balance = 10000 DVT
+Account3 DVT Tokens Balance = 10000 DVT
+Hacker DVT Tokens Balance = 0 DVT
+
+rewards = amountDeposited.mulDiv(REWARDS, totalDeposits);
+
+REWARDS => 100*(10**18) * totalDeposits => 30000*(10**18) / amountDeposited => 30000 * (10**18)
+
+rewards = 100 * (10**18)
+
+
+----After Deposit----
+RewarderPool DVT Tokens Balance = 30000 DVT
+
+
+If time is passed and the rewards are available:
+
+Account1 rTKN Tokens Balance = 33.3333... rTKN
+Account2 rTKN Tokens Balance = 33.3333... rTKN
+Account3 rTKN Tokens Balance = 33.3333... rTKN
+
+Hacker DVT Tokens Balance = 0 DVT
+FlashLoanerPool Tokens Balance = 1000000 DVT
+
+
+Now what can happen if the hacker take a flashloan of 970000 DVT tokens from the flashLoanerPool?
+
+Hacker will wait until the block.timestamp is > than (lastTimeDistributionReward + 5 days) and then ask for a
+flashloan from the flashLoaner pool to receive DVT_Tokens.
+Once receive DVT tokens, deposit the entire amount of the token in TheRewardPool Contract.
+Call immediatly withdraw function from TheRewardPool contract to receive back the DVTToken
+At the same time it get almost all the reward tokens from this round.
+
+This because:
+Same example of before
+
+Now let's supposed:
+
+FlashLoanerPool Tokens Balance = 970000 DVT
+Account1 DVT Tokens Balance = 10000 DVT
+Account2 DVT Tokens Balance = 10000 DVT
+Account3 DVT Tokens Balance = 10000 DVT
+
+--After FlashLoan
+Hacker DVT Tokens Balance = 970000 DVT
+
+rewards = amountDeposited.mulDiv(REWARDS, totalDeposits);
+
+REWARDS => 100*(10**18) * totalDeposits => 30000*(10**18) / amountDeposited => 970000 * (10**18)
+
+100.000.000.000.000.000.000 * 1.000.000.000.000.000.000.000.000 / 970.000.000.000.000.000.000.000
+
+100.000.000.000.000.000.000 * 30.000.000.000.000.000.000.000 / 970.000.000.000.000.000.000.000
+
+rewards = 100 * (10**18)
+
+1) Hacker ask for a flashloan of 970000 DVT.
+2) Hacker call deposit function in TheRewarderPool contract, and deposit the entire amount.
+3) Hacker get 97 % of the reward from TheRewardPool contract.
+4) Hacker send DVT Tokens back to the FlashLoanerPool.
+5) Exploit
+
+
