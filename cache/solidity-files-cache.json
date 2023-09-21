@@ -1614,6 +1614,198 @@
       "artifacts": [
         "AttackerRewarder"
       ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\DamnValuableBase\\DamnValuableTokenSnapshot.sol": {
+      "lastModificationDate": 1695206444517,
+      "contentHash": "071b95631e01d05915cc47c4077b01e2",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/DamnValuableBase/DamnValuableTokenSnapshot.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Snapshot.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DamnValuableTokenSnapshot"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\5_Selfie\\SimpleGovernance.sol": {
+      "lastModificationDate": 1695237641098,
+      "contentHash": "988bd3c665814ee75348900b011edaf9",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/5_Selfie/SimpleGovernance.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../DamnValuableBase/DamnValuableTokenSnapshot.sol",
+        "./ISimpleGovernance.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SimpleGovernance"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\5_Selfie\\ISimpleGovernance.sol": {
+      "lastModificationDate": 1695206247001,
+      "contentHash": "19973b013926ff69da2dc83d0eee3f44",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/5_Selfie/ISimpleGovernance.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ISimpleGovernance"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\5_Selfie\\SelfiePool.sol": {
+      "lastModificationDate": 1695212503038,
+      "contentHash": "7354cc608eb0692bdf74c8310ac1435c",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/5_Selfie/SelfiePool.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Snapshot.sol",
+        "@openzeppelin/contracts/interfaces/IERC3156FlashLender.sol",
+        "@openzeppelin/contracts/interfaces/IERC3156FlashBorrower.sol",
+        "./SimpleGovernance.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SelfiePool"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\5_Selfie\\SelfieAttack.sol": {
+      "lastModificationDate": 1695286618004,
+      "contentHash": "8912d1011b1303a68c0a79c189562944",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/5_Selfie/SelfieAttack.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./SelfiePool.sol",
+        "./SimpleGovernance.sol",
+        "../DamnValuableBase/DamnValuableTokenSnapshot.sol",
+        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Snapshot.sol",
+        "@openzeppelin/contracts/interfaces/IERC3156FlashBorrower.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SelfieAttack"
+      ]
     }
   }
 }

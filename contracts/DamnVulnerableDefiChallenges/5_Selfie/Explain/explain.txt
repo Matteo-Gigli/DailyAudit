@@ -1,0 +1,26 @@
+DAMN Vulnerable DEFI: 5-Selfie
+
+We have 3 contracts: SimpleGovernance, iSimpleGovernance, SelfiePool.
+
+ISimpleGovernance is the interface for the SimpleGovernance.
+SelfiePool is where we can get a flashloan of DVT Tokens.
+
+Problem in this contracts is:
+
+For governance and pool we have the same token.
+
+That means we can get a flashloan from the pool, manipulate the SimpleGovernance(DAO) and drain funds of the pool.
+
+Steps to Follow:
+
+1) Deploy all the contracts
+2) Fill the pool with 1.5 MLN DVT Tokens
+3) Hacker now:
+    3.1) From SelfieAttack Contract, call the flashloan
+    3.2) Once got the flashloan, hacker have enough DVT funds to create an action in the governance via
+         queueAction() function.
+         This action creates from the hacker will call the emergencyExit() function in selfiePool contract.
+    3.3) Get the ID of the action.
+    3.4) Wait 2 days
+    3.5) Execute the action and drain the pool
+
