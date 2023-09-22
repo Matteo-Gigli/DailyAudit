@@ -1,0 +1,56 @@
+DAMN Vulnerable DEFI: 6-Puppet
+
+We have 1 contract: PuppetPool.
+
+PuppetPool is a contract where we can borrow amount of DVT tokens.
+To borrow it we must to deposit double in ETH.
+
+If we want 1 DVT we must deposit 2 ether.
+
+
+We have a uniswapV1 pool with 10 DVT and 10 ether in it.
+
+
+
+We have, as hacker, 25 ether and 1000 DVT tokens to start.
+PuppetPool is filled up by 100000 DVT tokens.
+UniswapV1Pair is 10DVT/10Ether
+
+
+Price in puppetPool is determinate by the balanceOf() of the UniswapV1Pair.
+
+So what's happen if we swap the entire amount of the DVT tokens in the uniswapV1Pair?
+
+If we send(hacker) all the DVT tokens(1000 DVT) to the pair contract we get almost all the eth in the pool.
+Now to calculate the amountBorrow at puppetPool contract we follow this formula:
+
+    function _computeOraclePrice() private view returns (uint256) {
+        return uniswapPair.balance * (10 ** 18) / token.balanceOf(uniswapPair);
+    }
+
+    _computeOraclePrice() = 0,10 * (10**18) / 1010(10**18);
+
+then:
+
+    function calculateDepositRequired(uint256 amount) public view returns (uint256) {
+        return amount * _computeOraclePrice() * DEPOSIT_FACTOR / 10 ** 18;
+    }
+
+    amountToDeposit = 100000 * _computeOraclePrice() * 2 /10**18
+
+result is almost 20 ether.
+
+This means we must to deposit 20 ether,more or less, to the poolPuppet to get the all DVT Tokens.
+
+Follow the steps:
+
+1) Deploy all the contracts
+2) UniswapV1Pair ==> 10 DVT / 10 ETH
+3) PuppetPool ==> 100000 DVT
+4) Hacker ==> 25Ether, 1000DVT
+5) PuppetPool Borrow cost before exploit based on Uniswap balance of tokens ==> 1 DVT Token / 2 ETH
+6) Hacker send 1000 DVT to uniswapV1Pair and get 9,90 Ether back
+6) UniswapV1Pair ==> 1010 DVT / 0.10 ETH
+7) PuppetPool Borrow cost after exploit is changed.
+8) Borrow the entire amount of DVT tokens(100000) at less price than before
+9) Exploit
