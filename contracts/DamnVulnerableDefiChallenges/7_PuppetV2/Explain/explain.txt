@@ -1,0 +1,117 @@
+DAMN Vulnerable DEFI: 7-PuppetV2
+
+We have only one contract: PuppetV2Pool.sol
+
+As we can see, this pool is based on the reserves of a DVT/WETH uniswap V2 pair.
+
+So let's supposed we have a uniswapV2Pool DVT/WETH filled like 100 DVT/ 10 WETH (each are 18 decimals).
+
+PuppetPool contains 1 MLN DVT Tokens and offer borrow of DVT if we deposit 3 times value in WETH.
+
+So To have 1 DVT Token we must deposit 3 ether.
+
+These are the function that will calculate the amount to deposit:
+
+
+    function calculateDepositOfWETHRequired(uint256 tokenAmount) public view returns (uint256) {
+        uint256 depositFactor = 3;
+        return _getOracleQuote(tokenAmount).mul(depositFactor) / (1 ether);
+    }
+
+
+
+    // Fetch the price from Uniswap v2 using the official libraries
+
+    function _getOracleQuote(uint256 amount) private view returns (uint256) {
+        (uint256 reservesWETH, uint256 reservesToken) =
+            UniswapV2Library.getReserves(_uniswapFactory, address(_weth), address(_token));
+        return UniswapV2Library.quote(amount.mul(10 ** 18), reservesToken, reservesWETH);
+    }
+
+
+Let's suppose we want to borrow all the puppetPool DVT Balance:
+
+As we can see from _getOracleQuote(uint256 amount), the result is:
+ReserveDVT (reserve A uniswap pair DVT/WETH) = 100
+ReserveWETH (reserve B uniswap pair DVT/WETH) = 10
+amount (The toal amount of DVT in PuppetPool)= 1 MLN
+
+_getOracleQuote(uint256 amount) = 1 MLN * 10 / 100 = 100000
+
+
+Now to check the real amount to deposit we have calculateDepositOfWETHRequired(uint256 tokenAmount) function
+and the result of this is:
+
+    _getOracleQuote(tokenAmount).mul(depositFactor) / (1 ether);
+    100000 * 3 / 1 = 300000 Ether
+
+
+At this point, if we want to borrow 100000 token we must deposit 300000 Ether.
+
+
+Now as Hacker we have an amount of 10000 DVT Tokens and 20 ether.
+How we can manipulate the puppet pool DVT borrow price?
+
+
+As we said before, the uniswap pair DVT/WETH contains 100 DVT/ 10 WETH.
+
+We should use function to swap to manipulate price of the pool.
+There is a function in uniswapV2 that will help us to do it.
+
+    function swapExactTokensForETH(
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    );
+
+This function;
+1) get amountIn of tokens A
+2) get amountOutMin of token B
+3) path of the tokens
+4) receiver address
+5) deadline
+
+
+Now to use it to our advantage we can think about:
+
+We want to increase DVT tokens in the uniswap pool, but we don't want to decrease too much the eth balance.
+This because if we increase only one side of the pool we can manipulate price.
+
+
+
+So follow the steps:
+
+amount DVT PuppetPool = 1 MLN DVT
+Hacker DVT Balance = 10000 DVT
+Hacker WETH Balance = 20 WETH
+
+Pool DVT/WETH:
+ReserveDVT = 100 DVT
+ReserveWETH = 10 WETH
+
+
+1) Hacker send 10000 DVT to the uniswapV2pool using the swapExactTokensForETH(10000, 1, .....).
+This will set amount in as HackerDVTBalance and amountOutMin as 1(wei)
+
+2) Pool in this moment have: 10100 DVT/ 10 WETH
+
+3) Now we can see the manipulation when we check the puppetV2 calculation for borrow
+
+    _getOracleQuote(uint256 amount) = 1 MLN * 10 / 10100 = 9,9
+
+
+Now to check the real amount to deposit we have calculateDepositOfWETHRequired(uint256 tokenAmount) function
+and the result of this is:
+
+    _getOracleQuote(tokenAmount).mul(depositFactor) / (1 ether);
+    9,9 * 3 / 1 = 29.5 Ether
+
+We manipulated Price and now to borrow 1 MLN tokens we need only 29 ether instead of 300000 of before.
+
+
+
+
+
+

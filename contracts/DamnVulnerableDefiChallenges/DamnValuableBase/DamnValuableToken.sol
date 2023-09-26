@@ -8,7 +8,7 @@ contract DamnValuableToken is ERC20("DamnVulnerableToken", "DTV"){
 
 
     constructor(){
-        _mint(msg.sender, 1000000e18);
+        _mint(msg.sender, 10000000e18);
     }
 
 }

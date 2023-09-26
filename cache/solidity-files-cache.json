@@ -1539,8 +1539,8 @@
       ]
     },
     "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\DamnValuableBase\\DamnValuableToken.sol": {
-      "lastModificationDate": 1695127151304,
-      "contentHash": "91c620388c80e9ff7f27d081c705d3e0",
+      "lastModificationDate": 1695660512992,
+      "contentHash": "e0ab562e7a3c2eae910a6873198e5946",
       "sourceName": "contracts/DamnVulnerableDefiChallenges/DamnValuableBase/DamnValuableToken.sol",
       "solcConfig": {
         "version": "0.8.19",
@@ -2293,6 +2293,153 @@
       ],
       "artifacts": [
         "IUniswapExchange"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\7_PuppetV2\\PuppetV2Pool.sol": {
+      "lastModificationDate": 1695654260037,
+      "contentHash": "69f60ce9b4fb6d1a8bff2a9337691a85",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/7_PuppetV2/PuppetV2Pool.sol",
+      "solcConfig": {
+        "version": "0.6.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@uniswap/v2-periphery/contracts/libraries/UniswapV2Library.sol",
+        "@uniswap/v2-periphery/contracts/libraries/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.6.0"
+      ],
+      "artifacts": [
+        "IERC20",
+        "PuppetV2Pool"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\@uniswap\\v2-periphery\\contracts\\libraries\\UniswapV2Library.sol": {
+      "lastModificationDate": 1695654300460,
+      "contentHash": "b545c97573c8aa5876a4f9e25f28a732",
+      "sourceName": "@uniswap/v2-periphery/contracts/libraries/UniswapV2Library.sol",
+      "solcConfig": {
+        "version": "0.6.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol",
+        "./SafeMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "UniswapV2Library"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\@uniswap\\v2-periphery\\contracts\\libraries\\SafeMath.sol": {
+      "lastModificationDate": 1695654300460,
+      "contentHash": "9f77127a0e2c55c2058453327e84bde3",
+      "sourceName": "@uniswap/v2-periphery/contracts/libraries/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.6.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "=0.6.6"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\@uniswap\\v2-core\\contracts\\interfaces\\IUniswapV2Pair.sol": {
+      "lastModificationDate": 1695654692747,
+      "contentHash": "3fa31c3860f2b9585c3a98c64850829e",
+      "sourceName": "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "IUniswapV2Pair"
       ]
     }
   }
