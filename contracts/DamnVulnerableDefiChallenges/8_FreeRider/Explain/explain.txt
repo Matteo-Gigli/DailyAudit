@@ -1,0 +1,86 @@
+DAMN Vulnerable DEFI: 8-FreeRider
+
+We have only 2 contracts: FreeRiderNFTMarketplace, FreeRiderRecovery.
+
+We can be focused only on FreeRiderNFTMarketplace.
+
+This contract is a marketplace where we can offer and buy NFT.
+
+We have 6 NFT offered by the owner of the contract at 15 ether each.
+
+We have only 1 Ether, how we can get all the NFT?
+
+    function _buyOne(uint256 tokenId) private {
+        uint256 priceToPay = offers[tokenId];
+        if (priceToPay == 0)
+            revert TokenNotOffered(tokenId);
+
+        if (msg.value < priceToPay)
+            revert InsufficientPayment();
+
+        --offersCount;
+
+        // transfer from seller to buyer
+        DamnValuableNFT _token = token; // cache for gas savings
+        _token.safeTransferFrom(_token.ownerOf(tokenId), msg.sender, tokenId);
+
+        // pay seller using cached token
+        payable(_token.ownerOf(tokenId)).sendValue(priceToPay);
+
+        emit NFTBought(msg.sender, tokenId, priceToPay);
+    }
+
+If we take a look at this function from the marketplace, we can see we have some requirements to satisfy.
+
+Now if we think about it....how we can get some eth nearly for free for a limited time?
+FlashSwap is the answer.
+
+Let's suppose this scenario:
+
+1) We have a DVT/WETH Pool on uniswapV2 filled with 100 DVT/100 WETH
+2) We have 6 tokens to buy to 15 ether each. Total is 90 ether
+3) Ask a flashswap to the pool of 90 Ether
+4) Call FreeRiderNFTMarketplace.buyMany() function to buy all the NFT
+5) Give back the amount to the pair.
+
+But why this happening?
+
+It's happening because transfer ether to the owner is happening after the NFT transfer so we are giving back
+ether to ourself.
+
+In this case the scenario is:
+
+    Owner ===> token[0,1,2,3,4,5]
+    hacker ===> token[/]
+
+    _token.safeTransferFrom(_token.ownerOf(tokenId), msg.sender, tokenId);
+
+    Owner ===> token[/]
+    hacker ===> token[0,1,2,3,4,5]
+
+    _token.ownerOf([0,1,2,3,4,5]) ===> Hacker
+
+    At this point we receive back our ether:
+    payable(_token.ownerOf(tokenId)).sendValue(priceToPay);
+
+
+
+
+Let's explain it:
+
+FreeRideAttack Contract is deployed by hacker:
+
+1) Hacker send 1 ether to this contract
+2) Hacker call callLoan() function passin 90 ether as value(amount of loan from pool)
+3) callLoan() call uniswapV2Call() function to perform flashloan
+4) Receive flashloan and call marketplace.buyMany() function with all the tokens id
+5) Entry in marketplace.buyMany() function
+6) This function call _buyOne() function
+7) Entry in _buyOne() function
+8) _token.safeTransferFrom() transfer NFT to attacker address and
+    perform callback on attacker contract, calling onERC721Received() function.
+9) Now we are the owner of the tokens.
+10) Finish to perform _buyOne() function that will give back to us all the amount spent.
+11) Now function come back to uniswapV2Call() function to perform rest of the function
+12) Pay back the loan to the pool
+13) Hacker call transferToRecovery() from attacker address and get 45 ethers as pot.

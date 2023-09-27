@@ -1,8 +1,8 @@
-A new cool lending pool has launched!
-It’s now offering flash loans of DVT tokens.
-It even includes a fancy governance mechanism to control it.
+There’s a lending pool where users can borrow Damn Valuable Tokens (DVTs).
+To do so, they first need to deposit twice the borrow amount in ETH as collateral.
+The pool currently has 100000 DVTs in liquidity.
 
-What could go wrong, right ?
+There’s a DVT market opened in an old Uniswap v1 exchange, currently with 10 ETH and 10 DVT in liquidity.
 
-You start with no DVT tokens in balance, and the pool has 1.5 million.
-Your goal is to take them all.
+Pass the challenge by taking all tokens from the lending pool.
+You start with 25 ETH and 1000 DVTs in balance.

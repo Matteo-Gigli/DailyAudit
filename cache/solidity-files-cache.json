@@ -2441,6 +2441,308 @@
       "artifacts": [
         "IUniswapV2Pair"
       ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\8_FreeRider\\FreeRiderRecovery.sol": {
+      "lastModificationDate": 1695820987589,
+      "contentHash": "b9abffa60d1198c904b137c7966d3ff2",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/8_FreeRider/FreeRiderRecovery.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/Address.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "FreeRiderRecovery"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\8_FreeRider\\FreeRiderAttack.sol": {
+      "lastModificationDate": 1695821471633,
+      "contentHash": "50333bc925242e8462da9e55c18d9833",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/8_FreeRider/FreeRiderAttack.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./FreeRiderNFTMarketplace.sol",
+        "./FreeRiderRecovery.sol",
+        "../DamnValuableBase/DamnValuableNFT.sol",
+        "@uniswap/v2-core/contracts/interfaces/IUniswapV2Callee.sol",
+        "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol",
+        "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol",
+        "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "FreeRiderAttack"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DamnVulnerableDefiChallenges\\8_FreeRider\\FreeRiderNFTMarketplace.sol": {
+      "lastModificationDate": 1695823722656,
+      "contentHash": "0b05b4e55ef385f63efbb467ca7e076d",
+      "sourceName": "contracts/DamnVulnerableDefiChallenges/8_FreeRider/FreeRiderNFTMarketplace.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/Address.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "../DamnValuableBase/DamnValuableNFT.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "FreeRiderNFTMarketplace"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\@uniswap\\v2-core\\contracts\\interfaces\\IUniswapV2Factory.sol": {
+      "lastModificationDate": 1695654692747,
+      "contentHash": "ec39b5372f4f4d52101b4da561e2aee6",
+      "sourceName": "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "IUniswapV2Factory"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\@uniswap\\v2-periphery\\contracts\\interfaces\\IWETH.sol": {
+      "lastModificationDate": 1695654300444,
+      "contentHash": "270f2c1a1f22475259d5a2f6a524f72e",
+      "sourceName": "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "IWETH"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\hardhat\\console.sol": {
+      "lastModificationDate": 1693993813674,
+      "contentHash": "896f68942c3a20e9ae3c3c5bfd3add54",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\utils\\ERC721Holder.sol": {
+      "lastModificationDate": 1693993865193,
+      "contentHash": "6dc9f7bfd1fc143b9124493d089282a2",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC721Receiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC721Holder"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\@uniswap\\v2-core\\contracts\\interfaces\\IUniswapV2Callee.sol": {
+      "lastModificationDate": 1695654692731,
+      "contentHash": "30a4aed15b3fa3ce5588118b7cecfa7f",
+      "sourceName": "@uniswap/v2-core/contracts/interfaces/IUniswapV2Callee.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "IUniswapV2Callee"
+      ]
     }
   }
 }
