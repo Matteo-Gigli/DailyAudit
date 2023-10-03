@@ -64,6 +64,8 @@ describe("UniswapV3 Tick Calculation", function(){
         //WBTC/WETH Pool 0.05% fee
         //WBTC = token0
         //WETH = token1
+        //sqrtPrice96X =  32269074168085165065557598764488262
+        //tick = 258358
 
 
         //Check MinTick Price, Do calc on python
@@ -82,7 +84,18 @@ describe("UniswapV3 Tick Calculation", function(){
         //Do the same calc for the maxSqrtPriceX96 to know the maxTick Price
 
         //Go on https://app.uniswap.org/swap to check result for pair
-        //Result might be different from the following calculation explain;
+        //Result might be different from the following calculation explain:
+
+
+        //OriginalPrice = (sqrtPrice96X**2) / (2**192) / (10**10) = 16.58875690663369 WETH To Buy 1 WBTC
+        //PriceMinTickWETHToBuy1WBTC = (minSqrtPriceX96**2) / (2**192) / (10**10) = 16.239692926723148 WETH To Buy 1 WBTC
+        //PriceMaxTickWETHToBuy1WBTC = (maxSqrtPriceX96**2) / (2**192) / (10**10) = 16.902413565101927 WETH To Buy 1 WBTC
+
+
+        //PriceToBuy1WETHInWBTC = 1 / OriginalPrice ===> 0.06028179239880893 WBTC To Buy 1 WETH
+
+
+
     });
 
 
@@ -112,6 +125,8 @@ describe("UniswapV3 Tick Calculation", function(){
         //DAI/WETH Pool 0.05% fee
         //DAI = token0
         //WETH = token1
+        //SqrtPriceX96 = 1951340279627679032402963480
+        //tick = -74081
 
 
         //Check MinTick Price
@@ -131,6 +146,14 @@ describe("UniswapV3 Tick Calculation", function(){
 
         //Go on https://app.uniswap.org/swap to check result for pair
         //Result might be different from the following calculation explain;
+
+
+        //OriginalPrice = (SqrtPriceX96**2) / (2**192) ==> 1648.5159321574808 Amount Of DAI To Buy 1 WETH
+        //PriceMinTickDAIToBuy1WETH = (minSqrtPriceX96**2) / (2**192) = 1616.357774399259 DAI To Buy 1 WETH
+        //PriceMaxTickWETHToBuy1WBTC = (maxSqrtPriceX96**2) / (2**192) = 1682.319222126862 WETH To Buy 1 WETH
+
+
+        //PriceToBuy1DAIInWETH = 1 / OriginalPrice ===> 0.0006065320958289756 WETH To Buy 1 DAI
     });
 
 })

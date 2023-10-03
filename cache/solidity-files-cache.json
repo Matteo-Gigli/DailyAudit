@@ -2745,8 +2745,8 @@
       ]
     },
     "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DEFI\\UniswapV3\\CalculateTick\\TickCalculation.sol": {
-      "lastModificationDate": 1696341591170,
-      "contentHash": "d34711426d75a5453582d78b945f36f0",
+      "lastModificationDate": 1696344998784,
+      "contentHash": "3c32f9b2791944f3e64c93b7bc1a5038",
       "sourceName": "contracts/DEFI/UniswapV3/CalculateTick/TickCalculation.sol",
       "solcConfig": {
         "version": "0.7.6",

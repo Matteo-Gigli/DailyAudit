@@ -13,8 +13,8 @@ contract TickCalculation{
 
 
         if(tickOld < 0){
-            uint160 minTick = sqrty - percentOfSqrty;
-            uint160 maxTick = sqrty + percentOfSqrty;
+            uint160 minTick = sqrty + percentOfSqrty;
+            uint160 maxTick = sqrty - percentOfSqrty;
             int24 tick = TickMath.getTickAtSqrtRatio(minTick);
             int24 tick2 = TickMath.getTickAtSqrtRatio(maxTick);
             return(tick,tick2);
