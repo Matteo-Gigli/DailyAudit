@@ -1,0 +1,182 @@
+Uniswap V3 set ticks
+
+
+An easy calculation of the Tick to provide liquidity on Uniswap V3
+
+
+The biggest point of failure on providing liquidity on uniswapV3 should be rappresented by understand how the
+ticks works.
+
+
+Ticks are one of the biggest news for UniswapV3, and consist in provide liquidity in a specific range of price.
+This means, for LP, to maximize rewards for provide liquidity to the protocol.
+
+Let's assume there is a pool of DAI/WETH and price to buy 1 WETH is 1600 DAI.
+
+In uniswapV3 we can set a range of price(ex 1550-1650 DAI) to provide liquidity.
+
+This means, if price of eth will be stable in this range, the LP will receive rewards.
+Instead, if price go out from this range, LP receive nothing.
+
+This is totally different from uniswapV2 where we don't have ticks and we provide liquidity on all the price
+elliptic curve of the pool.
+
+
+Set ticks from uniswap dapp should be really easy, but via code can be very hard for many reasons and
+one of this is solidity, doesn't work with floating numbers.
+
+So how can we set this ticks in solidity?
+
+Every uniswap pair have a sqrtPriceX96 that rappresent the ratio between 2 tokens in a swap pool.
+
+Now let's go to check DAI/WETH UniswapV3Pool on etherscan:
+
+https://etherscan.io/address/0x60594a405d53811d3bc4766596efd80fd545a270#readContract
+
+Once there check slot0 and query it.
+
+We get some value from this call:
+
+     sqrtPriceX96   uint160 :  1942464625574973837193288578
+     tick   int24 :  -74172
+     observationIndex   uint16 :  37
+     observationCardinality   uint16 :  180
+     observationCardinalityNext   uint16 :  180
+     feeProtocol   uint8 :  0
+     unlocked   bool :  true
+
+As we can see we have sqrtPriceX96 and tick.
+
+Now to convert sqrtPriceX96 to redable price we can do this simple calculation:
+
+    AmountWethToBuy1DAI = (sqrtPriceX96**2) / (2**192) ====> 0.0006011004729044254
+
+If we check on Uniswap at: https://app.uniswap.org/swap
+We can see the calculation is right.
+
+We can do DAI to WETH Price doing this calculation:
+
+    amountDaiToBuy1Weth = 1 / AmountWethToBuy1DAI ====> 1663.6153938927268
+
+
+
+Once we got this, we can go to our TickCalculation Contract.
+
+function calculateNewTick(uint160 sqrty) calculate new ticks starting from sqrtPriceX96 of the Pair.
+Calculation is based on remove 0.1% on actual sqrtPriceX96 to set the minTick, and add 0.1% on actual
+sqrtPriceX96, and convert everything on ticks.
+
+Let's do some calc to understand how it works:
+
+
+    DAI/WETH UniswapV3Pool on etherscan:
+    DAI = Token0
+    WETH = Token1
+
+    https://etherscan.io/address/0x60594a405d53811d3bc4766596efd80fd545a270#readContract
+
+    sqrtPriceX96   uint160 :  1944309473910790394672930552
+    tick   int24 :  -74172
+
+When we call calculateNewTick(sqrtPriceX96):
+
+1) oldTick = function check the tick of the sqrtPriceX96
+2) Calculate 0.1% of sqrtPriceX96
+3-4) Check if tick is negative/positive and perform operations
+5) Return minTick and maxTick based on operations
+
+
+In this case, tick of DAI/WETH pool based on sqrtPriceX96 1943662406999479235783915152 is: -74172
+So We have a negative tick.
+
+Based on the function calculateNewTick(uint160 sqrty) we go into the if statement and the result we obtain is:
+
+minTickModified = -74360
+maxTickModified = -73960
+
+
+Now using the getSqrt(int24 tick) function, to get the sqrtPriceX96 based on the tick.
+
+minTickSqrtPriceX96 = getSqrt(-74360) ===> 1924214265259829681973380452
+maxTickSqrtPriceX96 = getSqrt(-73960) ===> 1963084008962549679915857102
+
+
+Now to convert this to a redable price we can do:
+
+OriginalPriceBasedOnOriginalSqrtPriceX96 = 0.0006018420142987038
+
+AmountOfWethToBuy1DaiMin = (minTickSqrtPriceX96**2) / (2**192) ===> 0.00058985829682452 WETH
+AmountOfWethToBuy1DaiMax = (maxTickSqrtPriceX96**2) / (2**192) ===> 0.00061392964280307 WETH
+
+As we can see, our ticks are perfectly in range with the Original price.
+
+If we want to know how many DAI we need to buy 1 Ether:
+
+amountOfToken0ToBuyToken1 = 1 / OriginalPriceBasedOnOriginalSqrtPriceX96 ===> 1661.5656206143228 DAI
+
+
+
+
+Now we can check for a pair with positive tick
+
+This pair should be WBTC/WETH.
+
+Check contract on etherscan: https://etherscan.io/address/0x4585fe77225b41b697c938b018e2ac67ac5a20c0#readContract
+
+Query the slot0 function()
+
+    sqrtPriceX96   uint160 :  32256132957983480871971734436137899
+    tick   int24 :  258350
+    observationIndex   uint16 :  45
+    observationCardinality   uint16 :  300
+    observationCardinalityNext   uint16 :  300
+    feeProtocol   uint8 :  0
+    unlocked   bool :  true
+
+As we can see in this example, we have positive tick.
+
+REMEMBER: We have different decimals ===> WBTC 8 decimals, WETH 18 decimals
+
+
+So let's do some calculation:
+
+    WBTC/WETH Pool:
+    WBTC = Token0
+    WETH = token1
+    sqrtPriceX96   uint160 :  32256132957983480871971734436137899
+    tick   int24 :  258350
+
+
+We call the calculateNewTick()function and this time we go in else statement and the result is:
+
+MinTick Modified WBTC/WETH Pool: 258152
+MaxTick Modified WBTC/WETH Pool: 258552
+
+
+Now using the getSqrt(int24 tick) function, to get the sqrtPriceX96 based on the tick.
+
+minTickSqrtPriceX96 = getSqrt(258152) ===> 31937342229440723801732900399387381
+maxTickSqrtPriceX96 = getSqrt(258552) ===> 32582486759037478108985740571167227
+
+
+Now to convert this to a redable price we can do:
+
+OriginalPriceBasedOnOriginalSqrtPriceX96 = 16.575454043346234 WETH to buy 1 WBTC
+
+AmountOfWethToBuy1WbtcMin = (minTickSqrtPriceX96**2) / (2**192) / (10**10) ===> 16.24943917875794 WETH
+AmountOfWethToBuy1DaiMax = (maxTickSqrtPriceX96**2) / (2**192) / (10**10) ===> 16.912557548941095 WETH
+
+We divide to 10**10 because we must to sub decimals.
+So WETH 18 decimals, WBTC 8 decimal = 10 - 8 = 10
+
+As we can see, our ticks are perfectly in range with the Original price.
+
+If we want to know how many WBTC we need to buy 1 WETH:
+
+amountOfToken0ToBuyToken1 = 1 / OriginalPriceBasedOnOriginalSqrtPriceX96 ===> 0.05912766280949688 WBTC To Buy 1 WETH
+
+
+
+
+
+

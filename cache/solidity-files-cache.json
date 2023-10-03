@@ -2743,6 +2743,78 @@
       "artifacts": [
         "IUniswapV2Callee"
       ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\contracts\\DEFI\\UniswapV3\\CalculateTick\\TickCalculation.sol": {
+      "lastModificationDate": 1696341591170,
+      "contentHash": "d34711426d75a5453582d78b945f36f0",
+      "sourceName": "contracts/DEFI/UniswapV3/CalculateTick/TickCalculation.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@uniswap/v3-core/contracts/libraries/TickMath.sol"
+      ],
+      "versionPragmas": [
+        "=0.7.6"
+      ],
+      "artifacts": [
+        "TickCalculation"
+      ]
+    },
+    "C:\\Users\\Danilo Gigli\\Desktop\\Solidity\\Twitter\\TwitterPost\\node_modules\\@uniswap\\v3-core\\contracts\\libraries\\TickMath.sol": {
+      "lastModificationDate": 1696319716102,
+      "contentHash": "6bd9ce5056f36b9763627bce69998c83",
+      "sourceName": "@uniswap/v3-core/contracts/libraries/TickMath.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0 <0.8.0"
+      ],
+      "artifacts": [
+        "TickMath"
+      ]
     }
   }
 }
