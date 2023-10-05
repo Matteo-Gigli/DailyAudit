@@ -6,7 +6,6 @@ pragma solidity =0.7.6;
 
 contract TickCalculation{
 
-
     function calculateNewTick(uint160 sqrty)public pure returns(int24,int24){
         int24 tickOld = TickMath.getTickAtSqrtRatio(sqrty);
         uint160 percentOfSqrty = sqrty * 10 / 1000; // 0.1%

@@ -71,7 +71,7 @@ describe("PuppetV2 Damn Vulnerable DEFI", function(){
 
 
         // Get Reserves Of The Pair
-        let [reserveDVT, reserveWETH] =await uniswapPair.getReserves()
+        let [reserveDVT, reserveWETH] = await uniswapPair.getReserves()
         console.log("Reserve DVT:", (reserveDVT/10**18).toString(), "DVT");
         console.log("Reserve WETH:", (reserveWETH/10**18).toString(), "WETH");
         console.log("");

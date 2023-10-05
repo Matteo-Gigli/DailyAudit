@@ -1,4 +1,5 @@
 require("@nomiclabs/hardhat-ethers");
+require("@nomicfoundation/hardhat-network-helpers");
 require("dotenv").config();
 
 

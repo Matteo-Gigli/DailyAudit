@@ -1,0 +1,88 @@
+DAMN Vulnerable DEFI: 9-PuppetV3
+
+We have only one contract: PuppetV3Pool
+
+This contract is a pool where we can borrow DVT Tokens.
+Ratio to borrow is 1:3 DVT/WETH.
+
+So to Borrow 1 DVT we must to transfer to the puppetV3Pool 3 ether.
+
+
+Now suppose to have a Pool DVT/WETH on uniswapV3, filled in ratio 1:1
+
+
+Settings:
+
+UniswapV3 DVT/WETH => 100/100
+PuppetV3Pool => 1 MLN DVT Tokens
+Hacker => 110 DVT/ 1 WETH
+
+
+Now check borrow function():
+
+When we call borrow Function another function will be called, calculateDepositOfWETHRequired(uint256 amount).
+This function will call another function _getOracleQuote(uint128 amount).
+This function will call OracleLibrary.consult(address(uniswapV3Pool), TWAP_PERIOD).
+
+OracleLibrary.consult(address _pool, uint _time) check the time-weighted means of tick and liquidity for a given
+Uniswap V3 pool.
+
+This means we pass a pool and a time, and this function check ticks and liquidity based on time.
+
+Once OracleLibrary.consult(address(uniswapV3Pool), TWAP_PERIOD) is called we get 2 values but we get only the
+first: arithmeticMeanTick.
+
+We pass this value (arithmeticMeanTick) to the OracleLibrary.getQuoteAtTick() to get back the amount of
+tokens we receive from a swap.
+
+
+What we see now is:
+PuppetV3Pool mechanism to borrow, is based on the uniswapV3Pool.
+ratio in uniswapPool is 1:1
+
+
+Now what we want to do is take all the DVT tokens(1 MLN) from PuppetV3Pool.
+
+How can we do it?
+
+As we said, we have 110 DVT tokens(hacker) what happens if i send it all to the uniswapV3Pool?
+
+We manipulate the price of the DVT/WETH Pool.
+
+Initially:
+
+    UniswapV3 DVT/WETH => 100/100
+    PuppetV3Pool => 1 MLN DVT Tokens
+    Hacker => 110 DVT/ 1 WETH
+
+After Hacker Swap 109 DVT
+
+    UniswapV3 DVT/WETH => 200/0
+    PuppetV3Pool => 1 MLN DVT Tokens
+    Hacker =>  0 DVT / 100 WETH
+
+
+What will happen, after 10 minutes, when we call borrow function is:
+
+1) Call The borrow Function with the entire amount of DVT in PuppetV3.sol
+2) This will call calculateDepositOfWETHRequired(uint256 amount)
+3) This will call _getOracleQuote(uint128 amount)
+4) OracleLibrary.consult(address(uniswapV3Pool), TWAP_PERIOD)
+5) Oracle library Perform operations based on what happens in the uniswapV3Pool 10 minutes before,
+   and gave us time-based tick and  time-based liquidity
+6) getQuoteAtTick is called and the result is the amount of tokens1(WETH In this pool) to get 1 DVT
+7) Result(0) is multiplied for DEPOSIT_FACTOR(3) and get the amount to deposit ==> 0
+8) Exploit
+
+
+We need an attack contract to do this.
+
+You can check it : PuppetAttacker.sol
+
+
+
+
+
+
+
+
